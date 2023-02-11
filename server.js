@@ -6,7 +6,7 @@ app.use(bodyParser.json())
 
 let fileupload = require("express-fileupload");
 app.use(fileupload({useTempFiles:true}));
-const formatXml = require("xml-formatter")
+// const formatXml = require("xml-formatter")
 const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
 
 const parser = new XMLParser();
@@ -42,7 +42,6 @@ app.post('/',(req,res)=>{
     let finishedObj=compareObjects(jObj,jObj2)
     // console.log(finishedObj)
     let xmlDataStr = builder.build(finishedObj);
-    console.log(xmlDataStr)
     fs.writeFile('./final.xml',xmlDataStr,(err)=>{
         if(err){
             console.log(err)
@@ -58,13 +57,6 @@ app.post('/',(req,res)=>{
     //   })
     res.send(xmlDataStr)
 
-
-
-
-
-
-
-    // res.send("File Uploaded");
 })
 
 
