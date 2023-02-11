@@ -6,6 +6,7 @@ app.use(bodyParser.json())
 
 let fileupload = require("express-fileupload");
 app.use(fileupload({useTempFiles:true}));
+const formatXml = require("xml-formatter")
 const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
 
 const parser = new XMLParser();
@@ -42,6 +43,19 @@ app.post('/',(req,res)=>{
     // console.log(finishedObj)
     let xmlDataStr = builder.build(finishedObj);
     console.log(xmlDataStr)
+    fs.writeFile('./final.xml',xmlDataStr,(err)=>{
+        if(err){
+            console.log(err)
+
+        }
+    })
+    // fs.writeFile("./final.xml", formatXml(xmlDataStr, {collapseContent: true}), function(err, result) {
+    //     if (err) {
+    //       console.log("err")
+    //     } else {
+    //       console.log("Xml file successfully updated.")
+    //     }
+    //   })
     res.send(xmlDataStr)
 
 
